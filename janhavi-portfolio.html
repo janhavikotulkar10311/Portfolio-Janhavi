@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Janhavi Kotulkar · Business Analytics Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0f0e0d;
+    --cream: #faf7f2;
+    --warm: #f0ebe0;
+    --gold: #c9933a;
+    --rust: #b85c38;
+    --muted: #7a7067;
+    --card: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    background: rgba(250,247,242,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201,147,58,0.2);
+    padding: 1rem 3rem;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700; font-size: 1.1rem; color: var(--ink);
+    letter-spacing: 0.02em;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none; color: var(--muted);
+    font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 8rem 5rem 4rem;
+    gap: 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; right: -10%; top: 10%;
+    width: 55vw; height: 80vh;
+    background: radial-gradient(ellipse at center, rgba(201,147,58,0.08) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    font-size: 0.75rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .hero-eyebrow::before {
+    content: ''; display: inline-block;
+    width: 2rem; height: 1px; background: var(--gold);
+  }
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 5vw, 5rem);
+    font-weight: 900; line-height: 1.05;
+    color: var(--ink); margin-bottom: 1.5rem;
+  }
+  h1 em { font-style: italic; color: var(--rust); }
+  .hero-desc {
+    font-size: 1.05rem; line-height: 1.8; color: var(--muted);
+    max-width: 480px; margin-bottom: 2.5rem;
+  }
+  .btn-group { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn {
+    display: inline-block; padding: 0.85rem 2rem;
+    text-decoration: none; font-size: 0.85rem;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    border-radius: 2px; transition: all 0.3s; font-weight: 500;
+  }
+  .btn-primary { background: var(--ink); color: var(--cream); border: 2px solid var(--ink); }
+  .btn-primary:hover { background: var(--rust); border-color: var(--rust); }
+  .btn-outline { background: transparent; color: var(--ink); border: 2px solid var(--ink); }
+  .btn-outline:hover { background: var(--ink); color: var(--cream); }
+
+  .hero-visual {
+    position: relative; display: flex; justify-content: center; align-items: center;
+  }
+  .avatar-ring {
+    width: 340px; height: 340px; border-radius: 50%;
+    border: 2px solid rgba(201,147,58,0.3);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .avatar-ring::before {
+    content: '';
+    position: absolute; inset: 12px; border-radius: 50%;
+    border: 1px dashed rgba(201,147,58,0.4);
+    animation: spin 20s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .avatar {
+    width: 280px; height: 280px; border-radius: 50%;
+    background: linear-gradient(135deg, #e8ddd0 0%, #d4c8b8 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem; font-weight: 700;
+    color: var(--muted);
+    border: 4px solid var(--cream);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+  }
+  .stats-strip {
+    position: absolute; bottom: -20px; left: 50%;
+    transform: translateX(-50%);
+    background: var(--ink); color: var(--cream);
+    padding: 1rem 2rem;
+    display: flex; gap: 2.5rem; border-radius: 4px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    white-space: nowrap;
+  }
+  .stat { text-align: center; }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--gold); }
+  .stat-label { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.6; }
+
+  /* SECTIONS */
+  section { padding: 6rem 5rem; }
+  .section-tag {
+    font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.75rem;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .section-tag::before { content: '§'; font-size: 0.9rem; }
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 700; margin-bottom: 1rem; line-height: 1.2;
+  }
+  .section-sub { color: var(--muted); font-size: 1rem; line-height: 1.7; max-width: 540px; margin-bottom: 3rem; }
+
+  /* SKILLS */
+  .skills-section { background: var(--warm); }
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
+  .skill-card {
+    background: var(--card); padding: 1.75rem;
+    border-radius: 4px; border: 1px solid rgba(0,0,0,0.06);
+    transition: all 0.3s; position: relative; overflow: hidden;
+  }
+  .skill-card::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 3px; height: 0; background: var(--gold);
+    transition: height 0.4s;
+  }
+  .skill-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.1); }
+  .skill-card:hover::before { height: 100%; }
+  .skill-icon { font-size: 1.75rem; margin-bottom: 0.75rem; }
+  .skill-title { font-weight: 500; font-size: 0.95rem; margin-bottom: 0.5rem; }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.75rem; }
+  .tag {
+    font-size: 0.72rem; padding: 0.25rem 0.6rem;
+    background: var(--warm); border-radius: 2px;
+    color: var(--muted); letter-spacing: 0.04em;
+  }
+
+  /* PROJECTS */
+  .cases-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 2rem; }
+  .case-card {
+    border: 1px solid rgba(0,0,0,0.08); border-radius: 4px;
+    overflow: hidden; transition: all 0.3s; background: var(--card);
+  }
+  .case-card:hover { box-shadow: 0 16px 50px rgba(0,0,0,0.1); transform: translateY(-5px); }
+  .case-header {
+    padding: 1.75rem; border-bottom: 1px solid rgba(0,0,0,0.06);
+    display: flex; justify-content: space-between; align-items: flex-start;
+  }
+  .case-domain { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
+  .case-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; }
+  .case-badge {
+    font-size: 0.7rem; padding: 0.3rem 0.75rem;
+    background: var(--warm); border-radius: 2px; white-space: nowrap;
+    color: var(--muted); letter-spacing: 0.05em;
+  }
+  .case-body { padding: 1.75rem; }
+  .case-problem { font-size: 0.9rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.25rem; }
+  .case-metrics { display: flex; gap: 1.5rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
+  .metric { text-align: center; }
+  .metric-num { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: var(--rust); }
+  .metric-label { font-size: 0.7rem; color: var(--muted); letter-spacing: 0.04em; }
+  .case-tools { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .case-link {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    margin-top: 1rem; font-size: 0.8rem; color: var(--gold);
+    text-decoration: none; letter-spacing: 0.05em; font-weight: 500;
+    transition: gap 0.2s;
+  }
+  .case-link:hover { gap: 0.7rem; }
+
+  /* EXPERIENCE */
+  .exp-section { background: var(--warm); }
+  .exp-timeline { position: relative; padding-left: 2rem; }
+  .exp-timeline::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 1px; background: rgba(201,147,58,0.3);
+  }
+  .exp-item { position: relative; margin-bottom: 3rem; }
+  .exp-item::before {
+    content: ''; position: absolute; left: -2rem; top: 0.35rem;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--gold); border: 2px solid var(--cream);
+    box-shadow: 0 0 0 3px rgba(201,147,58,0.2);
+  }
+  .exp-meta { font-size: 0.75rem; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.25rem; }
+  .exp-role { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; margin-bottom: 0.25rem; }
+  .exp-company { font-size: 0.9rem; color: var(--gold); font-weight: 500; margin-bottom: 1rem; }
+  .exp-bullets { list-style: none; }
+  .exp-bullets li {
+    font-size: 0.88rem; color: var(--muted); line-height: 1.7;
+    padding: 0.35rem 0; padding-left: 1.25rem; position: relative;
+  }
+  .exp-bullets li::before { content: '→'; position: absolute; left: 0; color: var(--gold); }
+
+  /* TOOLS */
+  .tools-section { background: var(--ink); color: var(--cream); }
+  .tools-section h2 { color: var(--cream); }
+  .tools-section .section-tag { color: var(--gold); }
+  .tools-section .section-sub { color: rgba(250,247,242,0.5); }
+  .tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 1px; border: 1px solid rgba(255,255,255,0.08); }
+  .tool-item {
+    padding: 1.5rem; text-align: center;
+    border: 1px solid rgba(255,255,255,0.06);
+    transition: background 0.3s;
+  }
+  .tool-item:hover { background: rgba(201,147,58,0.1); }
+  .tool-emoji { font-size: 1.5rem; margin-bottom: 0.5rem; }
+  .tool-name { font-size: 0.78rem; letter-spacing: 0.08em; color: rgba(250,247,242,0.7); }
+
+  /* EDUCATION */
+  .edu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+  .edu-card {
+    background: var(--card); padding: 1.75rem; border-radius: 4px;
+    border: 1px solid rgba(0,0,0,0.06); transition: all 0.3s;
+  }
+  .edu-card:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
+  .edu-degree { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; }
+  .edu-school { font-size: 0.85rem; color: var(--gold); font-weight: 500; margin-bottom: 0.25rem; }
+  .edu-detail { font-size: 0.8rem; color: var(--muted); }
+
+  /* CONTACT */
+  .contact-section {
+    background: var(--warm);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+  }
+  .contact-links { display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; }
+  .contact-link {
+    display: flex; align-items: center; gap: 1rem;
+    text-decoration: none; color: var(--ink);
+    padding: 1rem 1.25rem; background: var(--card);
+    border: 1px solid rgba(0,0,0,0.08); border-radius: 4px;
+    transition: all 0.3s; font-size: 0.9rem;
+  }
+  .contact-link:hover { border-color: var(--gold); transform: translateX(4px); }
+  .contact-link-icon { width: 36px; height: 36px; background: var(--warm); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; }
+  .contact-highlight { background: var(--ink); color: var(--cream); padding: 2.5rem; border-radius: 4px; }
+  .contact-highlight h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 1rem; }
+  .contact-highlight p { color: rgba(250,247,242,0.6); line-height: 1.7; font-size: 0.9rem; }
+  .contact-highlight .btn-primary { margin-top: 1.5rem; background: var(--gold); border-color: var(--gold); color: var(--ink); }
+
+  footer {
+    background: var(--ink); color: rgba(250,247,242,0.4);
+    text-align: center; padding: 2rem;
+    font-size: 0.8rem; letter-spacing: 0.05em;
+  }
+  footer span { color: var(--gold); }
+
+  .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.7s, transform 0.7s; }
+  .fade-in.visible { opacity: 1; transform: none; }
+
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; padding: 7rem 2rem 4rem; }
+    .hero-visual { display: none; }
+    section { padding: 4rem 2rem; }
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1.2rem; }
+    .contact-section { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Janhavi Kotulkar · BA</div>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#tools">Tools</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text fade-in">
+    <div class="hero-eyebrow">Business Analytics · Data Storytelling · Chicago, IL</div>
+    <h1>Data that<br>drives <em>real</em><br>decisions.</h1>
+    <p class="hero-desc">Master's in Business Analytics candidate at DePaul University with 3+ years at Capgemini managing 13 international clients. I turn messy data into clear insights using Power BI, SQL, and Python.</p>
+    <div class="btn-group">
+      <a href="#projects" class="btn btn-primary">View My Projects</a>
+      <a href="#contact" class="btn btn-outline">Let's Connect</a>
+    </div>
+  </div>
+  <div class="hero-visual fade-in">
+    <div class="avatar-ring">
+      <div class="avatar">JK</div>
+    </div>
+    <div class="stats-strip">
+      <div class="stat"><div class="stat-num">3+</div><div class="stat-label">Years Exp.</div></div>
+      <div class="stat"><div class="stat-num">13</div><div class="stat-label">Int'l Clients</div></div>
+      <div class="stat"><div class="stat-num">4</div><div class="stat-label">BA Projects</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="skills-section" id="skills">
+  <div class="section-tag">Core Competencies</div>
+  <h2>What I Bring<br>to Every Project</h2>
+  <p class="section-sub">From stakeholder workshops to dashboard delivery — I own the full analytics lifecycle with a business-first mindset.</p>
+  <div class="skills-grid">
+    <div class="skill-card fade-in">
+      <div class="skill-icon">📊</div>
+      <div class="skill-title">Data Visualization</div>
+      <p style="font-size:0.85rem;color:var(--muted);line-height:1.6;">Building interactive dashboards and reports that translate complex datasets into clear, executive-ready business stories.</p>
+      <div class="skill-tags"><span class="tag">Power BI</span><span class="tag">Tableau</span><span class="tag">Excel</span><span class="tag">Pivot Tables</span></div>
+    </div>
+    <div class="skill-card fade-in">
+      <div class="skill-icon">🗃️</div>
+      <div class="skill-title">Programming & Databases</div>
+      <p style="font-size:0.85rem;color:var(--muted);line-height:1.6;">Writing queries, automating data pipelines, and building analytical models to surface actionable patterns.</p>
+      <div class="skill-tags"><span class="tag">SQL</span><span class="tag">Python</span><span class="tag">R</span></div>
+    </div>
+    <div class="skill-card fade-in">
+      <div class="skill-icon">👥</div>
+      <div class="skill-title">Stakeholder Management</div>
+      <p style="font-size:0.85rem;color:var(--muted);line-height:1.6;">Managing international client relationships and aligning cross-functional teams around shared business goals.</p>
+      <div class="skill-tags"><span class="tag">Requirement Gathering</span><span class="tag">CAB Meetings</span><span class="tag">KPI Reporting</span></div>
+    </div>
+    <div class="skill-card fade-in">
+      <div class="skill-icon">🔍</div>
+      <div class="skill-title">Analytical Methods</div>
+      <p style="font-size:0.85rem;color:var(--muted);line-height:1.6;">Applying structured problem-solving techniques to identify root causes and recommend data-driven solutions.</p>
+      <div class="skill-tags"><span class="tag">Root Cause Analysis</span><span class="tag">Predictive Modeling</span><span class="tag">Statistics</span></div>
+    </div>
+    <div class="skill-card fade-in">
+      <div class="skill-icon">⚙️</div>
+      <div class="skill-title">Operations & Compliance</div>
+      <p style="font-size:0.85rem;color:var(--muted);line-height:1.6;">Ensuring zero-downtime deployments, 100% audit compliance, and streamlined change management workflows.</p>
+      <div class="skill-tags"><span class="tag">ServiceNow</span><span class="tag">SILVA</span><span class="tag">Audit Docs</span></div>
+    </div>
+    <div class="skill-card fade-in">
+      <div class="skill-icon">📈</div>
+      <div class="skill-title">Business Statistics</div>
+      <p style="font-size:0.85rem;color:var(--muted);line-height:1.6;">Applying statistical thinking to validate hypotheses, forecast trends, and support evidence-based decision-making.</p>
+      <div class="skill-tags"><span class="tag">Predictive Modeling</span><span class="tag">Data Analytics</span><span class="tag">R</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" style="background: var(--cream);">
+  <div class="section-tag">Analytics Projects</div>
+  <h2>Work That<br>Speaks in Numbers</h2>
+  <p class="section-sub">Real datasets, real insights. Each project showcases end-to-end analytics from raw data to business-ready dashboards.</p>
+  <div class="cases-grid">
+
+    <div class="case-card fade-in">
+      <div class="case-header">
+        <div>
+          <div class="case-domain">Sales · Power BI</div>
+          <div class="case-title">Sales Performance<br>Analytics Dashboard</div>
+        </div>
+        <span class="case-badge">Power BI</span>
+      </div>
+      <div class="case-body">
+        <p class="case-problem">Analysed $1.3M in revenue data to identify top-performing regions and customer segments. Automated data cleaning for 100% accuracy in monthly reporting and built interactive visualizations to optimize profit margins.</p>
+        <div class="case-metrics">
+          <div class="metric"><div class="metric-num">$1.3M</div><div class="metric-label">Revenue Analysed</div></div>
+          <div class="metric"><div class="metric-num">100%</div><div class="metric-label">Report Accuracy</div></div>
+        </div>
+        <div class="case-tools"><span class="tag">Power BI</span><span class="tag">Data Cleaning</span><span class="tag">KPI Dashboards</span></div>
+        <a href="https://github.com/janhavikotulkar10311/Sales-PerformanceAnalytics-Dashboard/blob/main/README.md" target="_blank" class="case-link">View on GitHub →</a>
+      </div>
+    </div>
+
+    <div class="case-card fade-in">
+      <div class="case-header">
+        <div>
+          <div class="case-domain">Music Industry · Tableau / Power BI</div>
+          <div class="case-title">Spotify Music Industry<br>Trends Visualizer</div>
+        </div>
+        <span class="case-badge">Tableau</span>
+      </div>
+      <div class="case-body">
+        <p class="case-problem">Processed 28K+ songs to track artist performance and popularity trends over time. Identified key song attributes — tempo, energy — that correlate with high streaming numbers using data-driven analysis.</p>
+        <div class="case-metrics">
+          <div class="metric"><div class="metric-num">28K+</div><div class="metric-label">Songs Processed</div></div>
+          <div class="metric"><div class="metric-num">Multi</div><div class="metric-label">KPI Attributes</div></div>
+        </div>
+        <div class="case-tools"><span class="tag">Tableau</span><span class="tag">Power BI</span><span class="tag">Trend Analysis</span></div>
+        <a href="https://github.com/janhavikotulkar10311/Spotify_dashboard/blob/main/README.md" target="_blank" class="case-link">View on GitHub →</a>
+      </div>
+    </div>
+
+    <div class="case-card fade-in">
+      <div class="case-header">
+        <div>
+          <div class="case-domain">E-commerce · Operations</div>
+          <div class="case-title">E-commerce Sales &<br>Operations Dashboards</div>
+        </div>
+        <span class="case-badge">Power BI</span>
+      </div>
+      <div class="case-body">
+        <p class="case-problem">Visualized $438K in transactions across product categories and payment methods. Built operational intelligence views to track profit distribution across cities, directly supporting logistics decision-making.</p>
+        <div class="case-metrics">
+          <div class="metric"><div class="metric-num">$438K</div><div class="metric-label">Transactions</div></div>
+          <div class="metric"><div class="metric-num">Multi-city</div><div class="metric-label">Coverage</div></div>
+        </div>
+        <div class="case-tools"><span class="tag">Power BI</span><span class="tag">Operational Analytics</span><span class="tag">Logistics</span></div>
+        <a href="https://github.com/janhavikotulkar10311/Business-OperationsAnalytics-Dashboard/blob/main/README.md" target="_blank" class="case-link">View on GitHub →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="exp-section" id="experience">
+  <div class="section-tag">Professional Experience</div>
+  <h2>Where I've<br>Made an Impact</h2>
+  <p class="section-sub">3+ years driving operational excellence and data-informed decisions at a global technology consulting firm.</p>
+  <div class="exp-timeline">
+    <div class="exp-item fade-in">
+      <div class="exp-meta">Aug 2022 – June 2025 · Mumbai, India</div>
+      <div class="exp-role">Senior Analyst – Service Control</div>
+      <div class="exp-company">Capgemini</div>
+      <ul class="exp-bullets">
+        <li>Orchestrated communication for <strong>13 international clients</strong>, ensuring technical changes aligned with global business requirements.</li>
+        <li>Facilitated <strong>Change Advisory Board (CAB) meetings</strong>, coordinating cross-functional teams to deploy updates with zero downtime.</li>
+        <li>Utilized Excel and ServiceNow to track KPIs and service delivery metrics, presenting weekly status reports to leadership.</li>
+        <li>Managed documentation in SILVA tools, ensuring <strong>100% adherence</strong> to audit and regulatory standards.</li>
+      </ul>
+    </div>
+    <div class="exp-item fade-in">
+      <div class="exp-meta">Leadership · Engineering College</div>
+      <div class="exp-role">Student Board Secretary & President</div>
+      <div class="exp-company">Pune University</div>
+      <ul class="exp-bullets">
+        <li>Represented the student body in board meetings with faculty and administration, communicating student concerns and negotiating solutions.</li>
+        <li>Organized institution-wide academic and cultural events, managing logistics, stakeholder coordination, and execution timelines.</li>
+        <li>Led structured meetings, prepared agendas, documented discussions, and ensured follow-up on action items.</li>
+      </ul>
+    </div>
+    <div class="exp-item fade-in">
+      <div class="exp-meta">Community · MindShift Mentoring Club</div>
+      <div class="exp-role">Management & Operations Lead</div>
+      <div class="exp-company">MindShift Mentoring Club</div>
+      <ul class="exp-bullets">
+        <li>Led planning and execution of mentoring programs, improving student participation through structured coordination.</li>
+        <li>Contributed to quarterly Women Empowerment sessions focused on personal development and career growth.</li>
+        <li>Managed volunteer coordination and session logistics, strengthening organizational effectiveness.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section class="tools-section" id="tools">
+  <div class="section-tag">Tech Stack</div>
+  <h2>Tools I Work With</h2>
+  <p class="section-sub">A well-equipped analyst knows the right tool for the right job. Here's my current toolkit.</p>
+  <div class="tools-grid">
+    <div class="tool-item"><div class="tool-emoji">📊</div><div class="tool-name">Power BI</div></div>
+    <div class="tool-item"><div class="tool-emoji">📈</div><div class="tool-name">Tableau</div></div>
+    <div class="tool-item"><div class="tool-emoji">🗃️</div><div class="tool-name">SQL</div></div>
+    <div class="tool-item"><div class="tool-emoji">🐍</div><div class="tool-name">Python</div></div>
+    <div class="tool-item"><div class="tool-emoji">📐</div><div class="tool-name">R Programming</div></div>
+    <div class="tool-item"><div class="tool-emoji">📋</div><div class="tool-name">ServiceNow</div></div>
+    <div class="tool-item"><div class="tool-emoji">📁</div><div class="tool-name">SILVA</div></div>
+    <div class="tool-item"><div class="tool-emoji">📑</div><div class="tool-name">Excel (Advanced)</div></div>
+    <div class="tool-item"><div class="tool-emoji">🔵</div><div class="tool-name">Google Workspace</div></div>
+    <div class="tool-item"><div class="tool-emoji">💼</div><div class="tool-name">MS Office Suite</div></div>
+  </div>
+
+  <!-- EDUCATION under tools -->
+  <div style="margin-top: 4rem;">
+    <div class="section-tag">Education</div>
+    <h2 style="color:var(--cream);margin-bottom:1.5rem;">Academic Background</h2>
+    <div class="edu-grid">
+      <div class="edu-card fade-in">
+        <div class="edu-degree">M.S. in Business Analytics</div>
+        <div class="edu-school">DePaul University · Chicago, IL</div>
+        <div class="edu-detail">Expected 2027 · Coursework: Data Analytics, Business Statistics, Predictive Modeling</div>
+      </div>
+      <div class="edu-card fade-in">
+        <div class="edu-degree">B.E. in Computer Engineering</div>
+        <div class="edu-school">Pune University · Pune, India</div>
+        <div class="edu-detail">Graduated 2022</div>
+      </div>
+      <div class="edu-card fade-in">
+        <div class="edu-degree">Diploma in Computer Engineering</div>
+        <div class="edu-school">MSBTE · Maharashtra, India</div>
+        <div class="edu-detail">Graduated 2019</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="fade-in">
+    <div class="section-tag">Get In Touch</div>
+    <h2>Let's Work<br>Together</h2>
+    <p class="section-sub">Open to Business Analytics internship opportunities in Chicago. I bring 3+ years of real-world experience and a passion for data-driven storytelling.</p>
+    <div class="contact-links">
+      <a href="https://www.linkedin.com/in/janhavikotulkar" target="_blank" class="contact-link">
+        <span class="contact-link-icon">💼</span>
+        <div><strong>LinkedIn</strong> — linkedin.com/in/janhavikotulkar</div>
+      </a>
+      <a href="https://github.com/janhavikotulkar10311" target="_blank" class="contact-link">
+        <span class="contact-link-icon">🐙</span>
+        <div><strong>GitHub</strong> — github.com/janhavikotulkar10311</div>
+      </a>
+      <a href="mailto:janhavikotulkar10311@gmail.com" class="contact-link">
+        <span class="contact-link-icon">✉️</span>
+        <div><strong>Email</strong> — janhavikotulkar10311@gmail.com</div>
+      </a>
+      <a href="tel:+13128773805" class="contact-link">
+        <span class="contact-link-icon">📞</span>
+        <div><strong>Phone</strong> — (+1) 312-877-3805</div>
+      </a>
+    </div>
+  </div>
+  <div class="contact-highlight fade-in">
+    <h3>Seeking a Business Analytics Internship</h3>
+    <p>With hands-on experience in Power BI, SQL, and stakeholder management across international environments — I'm ready to bring data-driven clarity to your team from day one.</p>
+    <a href="mailto:janhavikotulkar10311@gmail.com" class="btn btn-primary">Reach Out →</a>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 <span>Janhavi Kotulkar</span> · Business Analytics Portfolio · Chicago, IL</p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
